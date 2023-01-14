@@ -1,0 +1,33 @@
+{
+  "name": "crm-project-vue",
+  "version": "1.0.0",
+  "description": "The application was developed with the help of such technologies: VueJS, PostgreSQL, ExpressJS, NodeJS.\nThis is an educational project of CRM sitsem",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app",
+    "dev": "nodemon app"
+  },
+  "keywords": [
+    "vue",
+    "nodejs",
+    "postgresql",
+    "express"
+  ],
+  "author": "Volodymyr Litvinichev <vovik3072@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "jsonwebtoken": "^9.0.0",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.28.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
