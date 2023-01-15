@@ -31,11 +31,11 @@ export default {
                 console.log(e);
             }
         },
-        async editCategory({},{ userId, token, title, limit, message}){
+        async editCategory({},{ userId, categoryId, token, title, limit, message}){
           try{
               const requestOptions = {
                   method: "POST",
-                  body: JSON.stringify({ title, limit, userId }),
+                  body: JSON.stringify({categoryId, title, limit, userId }),
                   headers: {
                     "Content-Type": "application/json",
                     'Authorization' : `Bearer ${token}`

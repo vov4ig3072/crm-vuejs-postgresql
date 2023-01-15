@@ -23,18 +23,18 @@ class CategoryController{
     async edit(req, res) {
         try{
     
-            const { userId, title, limit} = req.body           
+            const { categoryId, userId, title, limit} = req.body           
     
-            const category = await Category.findOne({where: {title}})
+            const category = await Category.findOne({where: {userId, id: categoryId}})
             
             if(!category){
                 return res.status(401).json({message: 'Category no find'})
             }
     
-            await Category.update({limit},{
-                where:{title, userId}
+            const updateCat = await Category.update({limit, title},{
+                where:{id: categoryId}
             })
-    
+
             res.status(201).json({message: 'Category updated'})
         }catch (e) {
             res.status(500).json({message: "Sever Error try later"})
