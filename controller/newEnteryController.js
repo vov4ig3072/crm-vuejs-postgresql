@@ -30,6 +30,28 @@ class NewEnteryController{
             res.status(500).json({message: "Sever Error try later"})
         }
     }
+
+    async getOutcome(req,res) {
+        try{
+            const userId = req.params.id,
+                  outcome = await Consuntion.findAll({where: {userId}})
+    
+            res.status(200).json(outcome)
+        }catch (e){
+            res.status(500).json({message: "Sever Error try later"})
+        }
+    }
+
+    async getIncome(req,res) {
+        try{
+            const userId = req.params.id,
+                  income = await Income.findAll({where: {userId}})
+    
+            res.status(200).json(income)
+        }catch (e){
+            res.status(500).json({message: "Sever Error try later"})
+        }
+    }
 }
 
 export default new NewEnteryController()

@@ -58,6 +58,7 @@
 import Loader from '@/components/app/Loader.vue';
 import { minValue, required} from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
+import { mapGetters } from 'vuex'
 import NewEntryCategory from '@/components/NewEntryCategory.vue';
 
 export default {
@@ -87,26 +88,39 @@ export default {
         sum: { minValue: minValue(10)},
         comment: { required }
     },
+    computed:{
+        ...mapGetters(['info']),
+        canCreateNewEntery(){
+            if(this.chacked === 'income'){
+                return true
+            }
+            return this.info.salary >= this.sum ? true : false
+        }
+    },
     methods:{
         async newEnteryHandler(){
             if(this.v$.$invalid){
                 this.v$.$touch()
                 return
             }
+            if(this.canCreateNewEntery){
+                const message = await this.$store.dispatch('newEntery', {
+                    categoryId: this.chacked === 'income' ? null : this.catId,
+                    chacked: this.chacked,
+                    sum: this.sum,
+                    comment: this.comment,
+                    token: this.$cookies.get('token'),
+                    userId: this.$cookies.get('userId'),
+                })
 
-            const message = await this.$store.dispatch('newEntery', {
-                categoryId: this.chacked === 'income' ? null : this.catId,
-                chacked: this.chacked,
-                sum: this.sum,
-                comment: this.comment,
-                token: this.$cookies.get('token'),
-                userId: this.$cookies.get('userId'),
-            })
+                this.sum = 10
+                this.comment = ''
 
-            this.sum = 10
-            this.comment = ''
-
-            this.$message(message.message)
+                this.$message(message.message)
+            }else{
+                this.$message(`Недостатньо ${ this.sum - this.info.salary}грн на рахунку`)
+            }
+            
         },
         emitCheckCategory(data){
             const {catId, chacked} = data

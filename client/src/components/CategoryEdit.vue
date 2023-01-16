@@ -1,6 +1,7 @@
 <template>
     <div>
         <Loader v-if="loading" />
+        <p v-else-if="!categories.length" class="center">Додайте першу категорію</p>
         <div v-else>
             <h4>Редагувати</h4>
             <form class="container-category__form" @submit.prevent="submitHandler">
