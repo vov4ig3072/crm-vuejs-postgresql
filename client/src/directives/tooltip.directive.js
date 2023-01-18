@@ -1,6 +1,5 @@
 export default {
     mounted(el, {value}){
-        console.log(el);
         M.Tooltip.init(el, {html: value, position: 'top'})
     },
     beforeUnmount(el){

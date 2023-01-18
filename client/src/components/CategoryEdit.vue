@@ -89,7 +89,7 @@ export default {
         M.updateTextFields()
     },    
     validations: {
-        limit: { minValue: minValue(100)},
+        limit: { required, minValue: minValue(100)},
         title: { required }
     },
     methods: {

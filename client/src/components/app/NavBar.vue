@@ -3,7 +3,7 @@
         <div class="nav-wrapper">
             <router-link to="/" class="brand-logo"><span id="user-name">{{ name }}</span> </router-link>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li> {{ dateFilters(date) }} </li>
+                <li> {{ $filters.dateFilters(date) }} </li>
                 <li> <a href="#" @click.prevent="logout">Log out</a> </li>
             </ul>
         </div>
@@ -27,18 +27,6 @@ export default {
             this.$cookies.keys().forEach(cookie => this.$cookies.remove(cookie))
             this.$store.commit('clearInfo')
             this.$router.push("/login?message=logout")
-        },
-        dateFilters(value){
-            const options = {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-                hour:"numeric",
-                minute: "numeric",
-                second: "numeric"
-            }
-                
-            return new Intl.DateTimeFormat('ua-UA', options).format(value)
         }
     },
     mounted(){

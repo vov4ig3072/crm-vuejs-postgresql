@@ -58,7 +58,7 @@ export default {
     },
     validations: {
         title: { required },
-        limit: { minValue: minValue(100)}
+        limit: { required, minValue: minValue(100)}
     },
     methods: {
         async submitHandler(){

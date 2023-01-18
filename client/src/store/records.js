@@ -39,6 +39,20 @@ export default {
             }catch (e){
                 return e.message
             }
+        },
+        async getIncome({},{userId, token}){
+            try{
+                const requestOptions = {
+                    headers: {
+                    'Authorization' : `Bearer ${token}`
+                    },
+                };
+        
+                const response = await fetch(`/api/new-entery/get-income/${userId}`, requestOptions)
+                return await response.json()
+            }catch (e){
+                return e.message
+            }
         }
     }
   }

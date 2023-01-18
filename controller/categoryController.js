@@ -31,13 +31,11 @@ class CategoryController{
                 return res.status(401).json({message: 'Category no find'})
             }
     
-            const updateCat = await Category.update({limit, title},{
-                where:{id: categoryId}
-            })
+            await Category.update({limit, title},{ where: { id: categoryId } })
 
-            res.status(201).json({message: 'Category updated'})
+            res.status(201).json({ message: 'Category updated' })
         }catch (e) {
-            res.status(500).json({message: "Sever Error try later"})
+            res.status(500).json({ message: "Sever Error try later" })
         }
     }
 
@@ -45,9 +43,9 @@ class CategoryController{
         try{
             const userId = req.params.id         
     
-            const category = await Category.findAll({where:{userId}})
+            const category = await Category.findAll({ where:{userId} })
             if(!category){
-                return res.status(401).json({message: 'Category no find'})
+                return res.status(401).json({ message: 'Category no find' })
             }
     
             res.status(201).json(category)

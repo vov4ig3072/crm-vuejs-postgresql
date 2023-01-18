@@ -42,6 +42,12 @@ const routes = [
     name: 'history',
     meta: {layout: 'main'},
     component: () => import('../views/History.vue')
+  },
+  {
+    path: '/detail/:id',
+    name: 'detail',
+    meta: {layout: 'main'},
+    component: () => import('../views/Detail.vue')
   }
 ]
 
