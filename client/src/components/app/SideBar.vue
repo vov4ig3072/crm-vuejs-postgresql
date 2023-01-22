@@ -19,11 +19,11 @@
 export default {
     data: () => ({
         links: [
-            {title: 'Score', url: '/', exact: true},
-            {title: 'History', url: '/history'},
-            {title: 'Planing', url: '/planing'},
-            {title: 'New entry', url: '/new'},
-            {title: 'Category', url: '/category'}
+            {title: 'Рахунок', url: '/', exact: true},
+            {title: 'Історія', url: '/history'},
+            {title: 'Планування', url: '/planing'},
+            {title: 'Новий запис', url: '/new'},
+            {title: 'Категорія', url: '/category'}
         ]
     })
 }

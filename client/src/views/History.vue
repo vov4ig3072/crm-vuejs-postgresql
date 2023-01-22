@@ -4,7 +4,7 @@
         <hr/>
 
         <div>
-            <div style="height: 300px">
+            <div style="height: 280px">
 
             </div>
             
@@ -13,9 +13,28 @@
             <p v-else-if="!historyList.length" class="center">Історія відсутня.<router-link to="/new">Додайте запис</router-link></p>
 
             <section  v-else>
-                <HistoryTable :list="historyList"/>
+                <HistoryTable :list="items" :count="{page, pageCount}"/>
+                <div class="input-field col s12 m6 pagination-list">
+                    <Paginate 
+                        v-if="allItems.length > 1"
+                        v-model="page"
+                        :page-count="pageCount"
+                        :click-handler="changeHandler"
+                        :prev-text="'Попередній'"
+                        :next-text="'Наступний'"
+                        :container-class="'pagination'"
+                        :page-class="'waves-effect'"
+                        :active-class="'light-blue accent-2'"
+                    />
+                    <p>Показувати на сторінці:&nbsp;</p>
+                    <select ref="select" name="pageCount" id="pageCount" v-model="pageSize">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                    </select>
+                </div>
+                
             </section>
-            
         </div>
     </div>
 </template>
@@ -23,13 +42,22 @@
 <script>
 import Loader from '@/components/app/Loader.vue'
 import HistoryTable from '../components/HistoryTable.vue'
+import mixinPagination from '@/mixins/pagination.mixin'
 
 export default {
+
     name: 'history',
+    mixins: [mixinPagination],
     data: () => ({
         loading: true,
         historyList: [],
+        select: null
     }),
+    watch:{
+        pageSize(){ 
+            this.setUpPaginations(this.historyList)
+        }
+    },
     async mounted(){
         const income = await this.$store.dispatch('getIncome',{ token: this.$cookies.get('token'), userId: this.$cookies.get('userId') })
         const outcome = await this.$store.dispatch('getOutcome',{ token: this.$cookies.get('token'), userId: this.$cookies.get('userId') })
@@ -51,10 +79,18 @@ export default {
                     className
                 }
             })
-        
-            this.loading = false
+        this.setUpPaginations(this.historyList)
+        this.loading = false
+            setTimeout(() => {
+                 this.select = M.FormSelect.init(this.$refs.select)
+            },0)
+       
     },
-    methods:{},
+    destroyed(){
+        if(this.select && this.select.destroy){
+            this.select.destroy()
+        }
+    },
     components: { HistoryTable, Loader }
 }
 // new Date(a.createdAt).toLocaleDateString()

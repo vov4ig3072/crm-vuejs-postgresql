@@ -1,4 +1,5 @@
 import  { createApp } from 'vue'
+import Paginate from 'vuejs-paginate-next'
 import App from "./App"
 import router from './router/router'
 import store from './store'
@@ -14,6 +15,7 @@ const app = createApp(App)
 app.use(messagePlugin)
 app.use(VueCookies, {expireTimes: '4h'})
 app.component('Loader', Loader)
+app.component('Paginate', Paginate)
 app.directive('tooltip', tooltipDirective)
 app.config.globalProperties.$filters = {
     currency, dateFilters

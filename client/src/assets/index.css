@@ -6,6 +6,16 @@
     justify-content: center;
 }
 
+.modal {
+    width: 30%;
+    border-radius: 5px;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    display: none;
+}
+
 .form-auth {
     width: 30%;
     border-radius: 5px;
@@ -168,6 +178,16 @@
 
 .history-table{
     padding: 0 2rem;
+}
+
+.pagination-list {
+    display: flex;
+    align-items: center;
+}
+
+.pagination-list input {
+    width: 3.5rem !important;
+    text-align: center;
 }
 /* 
 .empty-layout{display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-ms-flex-align:center;align-items:center;padding-top:5rem;height:100vh}
