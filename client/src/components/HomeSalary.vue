@@ -1,10 +1,10 @@
 <template>
     <div class="home-content__score cyan lighten-2">
         <h4>Pахунок в валюті</h4>
-        <span>{{ salary }} UAH</span>
+        <span>{{ $filters.currency(salary) }}</span>
         <hr>
         <p v-for="key in this.rate" :key="key.r030">
-            <span>{{ Math.floor(salary / key.rate) }} {{key.cc}}</span>
+            <span>{{ $filters.currency(Math.floor(salary / key.rate), key.cc)}}</span>
         </p>
     </div>
 </template>

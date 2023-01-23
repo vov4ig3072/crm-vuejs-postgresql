@@ -183,6 +183,7 @@
 .pagination-list {
     display: flex;
     align-items: center;
+    margin-bottom: 0 !important;
 }
 
 .pagination-list input {

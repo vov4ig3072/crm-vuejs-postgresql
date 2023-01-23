@@ -56,6 +56,7 @@ export default {
             const tooltipValue = cat.limit - spend
 
             const tooltip = `${tooltipValue < 0 ? 'Перевищення витрат на' : 'Залишилось'} ${this.$filters.currency(Math.abs(tooltipValue))} `
+            
             return{
                 ...cat,
                 spend,
@@ -64,6 +65,7 @@ export default {
                 tooltip
             }
         })
+
         this.loading = false
     },
     components: { Loader }

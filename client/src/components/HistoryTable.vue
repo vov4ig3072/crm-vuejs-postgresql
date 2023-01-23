@@ -26,7 +26,7 @@
             </thead>
             <tbody>
                 <tr v-for="(item,idx) in list" :key="item.date">
-                    <td>{{ (idx + 1) + (count.page * count.pageCount) - count.pageCount }}</td>
+                    <td>{{ (idx + 1) + (count.page * count.pageSize) - count.pageSize }}</td>
                     <td>{{ $filters.currency(item.sum) }}</td>
                     <td>{{ $filters.dateFilters(item.date) }}</td>
                     <td>{{ item.category }}</td>
