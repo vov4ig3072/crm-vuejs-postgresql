@@ -44,10 +44,10 @@ const routes = [
     component: () => import('../views/History.vue')
   },
   {
-    path: '/detail/:id',
-    name: 'detail',
+    path: '/profile',
+    name: 'profile',
     meta: {layout: 'main'},
-    component: () => import('../views/Detail.vue')
+    component: () => import('../views/Profile.vue')
   }
 ]
 

@@ -1,109 +1,130 @@
 <template>
     <div>
-
-        <div >
+        <div>
             <h4>Новий запис</h4>
-            <hr/>
-            <Loader v-if="loading"/>
-            <p v-else-if="!categories.length" class="center">Відсутні категорії &nbsp;<router-link to="/category">Додати</router-link></p>
+            <hr />
+            <Loader v-if="loading" />
+            <p v-else-if="!categories.length" class="center">
+                Відсутні категорії &nbsp;
+                <router-link to="/category">Додати</router-link>
+            </p>
             <form v-else @submit.prevent="newEnteryHandler">
-                <NewEntryCategory v-if="categories.length" :categories="categories" @checkCategory="emitCheckCategory"/>
+                <NewEntryCategory
+                    v-if="categories.length"
+                    :categories="categories"
+                    @checkCategory="emitCheckCategory"
+                />
 
                 <div class="container-create">
                     <div class="input-field col s6">
-                        <input 
-                            id="sum-edit" 
-                            type="text" 
+                        <input
+                            id="sum-edit"
+                            type="text"
                             class="validate"
                             v-model.number="sum"
-                            :class="{invalid: v$.sum.$dirty && v$.sum.$invalid}"
+                            :class="{
+                                invalid: v$.sum.$dirty && v$.sum.$invalid,
+                            }"
+                        />
+                        <label for="sum-edit"
+                            >Сумма
+                            {{
+                                chacked === 'income' ? 'надходжень' : 'витрат'
+                            }}</label
                         >
-                        <label for="sum-edit">Сумма {{ chacked === "income" ? 'надходжень': 'витрат' }}</label>
-                        <span 
+                        <span
                             class="invalid-message"
                             v-if="v$.sum.$dirty && v$.sum.$invalid"
-                        >Введіть сумму</span>
+                            >Введіть сумму</span
+                        >
                     </div>
 
                     <div class="input-field col s6">
-                        <input 
-                            id="name-create" 
-                            type="text" 
+                        <input
+                            id="name-create"
+                            type="text"
                             class="validate"
                             v-model="comment"
-                            :class="{invalid : v$.comment.$dirty && v$.comment.$invalid}"
-                        >
+                            :class="{
+                                invalid:
+                                    v$.comment.$dirty && v$.comment.$invalid,
+                            }"
+                        />
                         <label for="name-create">Комментарій</label>
-                        <span 
+                        <span
                             class="invalid-message"
                             v-if="v$.comment.$dirty && v$.comment.$invalid"
-                        >Введіть комментарій витрат</span>
+                            >Введіть комментарій витрат</span
+                        >
                     </div>
 
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Створити
+                    <button
+                        class="btn waves-effect waves-light"
+                        type="submit"
+                        name="action"
+                    >
+                        Створити
                         <i class="material-icons right">send</i>
                     </button>
                 </div>
             </form>
         </div>
     </div>
-
 </template>
 
-<style >
-
-</style>
+<style></style>
 
 <script>
-import Loader from '@/components/app/Loader.vue';
-import { minValue, required} from '@vuelidate/validators'
+import Loader from '@/components/app/Loader.vue'
+import { minValue, required } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { mapGetters } from 'vuex'
-import NewEntryCategory from '@/components/NewEntryCategory.vue';
+import NewEntryCategory from '@/components/NewEntryCategory.vue'
 
 export default {
-    setup:() => ({
-        v$: useVuelidate()
+    setup: () => ({
+        v$: useVuelidate(),
     }),
-    data:() => ({
+    data: () => ({
         loading: true,
         categories: [],
         catId: null,
         chacked: null,
         sum: 10,
-        comment: ''
+        comment: '',
     }),
-    async mounted(){                
-
-        this.categories = await this.$store.dispatch('getCategories',{
+    async mounted() {
+        this.categories = await this.$store.dispatch('getCategories', {
             token: this.$cookies.get('token'),
-            userId: this.$cookies.get('userId')
+            userId: this.$cookies.get('userId'),
         })
 
         this.loading = false
 
-        setTimeout(() => {M.updateTextFields()},0)
+        setTimeout(() => {
+            M.updateTextFields()
+        }, 0)
     },
     validations: {
-        sum: { minValue: minValue(10)},
-        comment: { required }
+        sum: { minValue: minValue(10) },
+        comment: { required },
     },
-    computed:{
+    computed: {
         ...mapGetters(['info']),
-        canCreateNewEntery(){
-            if(this.chacked === 'income'){
+        canCreateNewEntery() {
+            if (this.chacked === 'income') {
                 return true
             }
             return this.info.salary >= this.sum ? true : false
-        }
+        },
     },
-    methods:{
-        async newEnteryHandler(){
-            if(this.v$.$invalid){
+    methods: {
+        async newEnteryHandler() {
+            if (this.v$.$invalid) {
                 this.v$.$touch()
                 return
             }
-            if(this.canCreateNewEntery){
+            if (this.canCreateNewEntery) {
                 const message = await this.$store.dispatch('newEntery', {
                     categoryId: this.chacked === 'income' ? null : this.catId,
                     chacked: this.chacked,
@@ -117,20 +138,21 @@ export default {
                 this.comment = ''
 
                 this.$message(message.message)
-            }else{
-                this.$message(`Недостатньо ${ this.sum - this.info.salary}грн на рахунку`)
+            } else {
+                this.$message(
+                    `Недостатньо ${this.sum - this.info.salary}грн на рахунку`
+                )
             }
-            
         },
-        emitCheckCategory(data){
-            const {catId, chacked} = data
+        emitCheckCategory(data) {
+            const { catId, chacked } = data
             this.catId = catId
             this.chacked = chacked
-        }
+        },
     },
     components: {
         NewEntryCategory,
-        Loader
-    }
+        Loader,
+    },
 }
 </script>

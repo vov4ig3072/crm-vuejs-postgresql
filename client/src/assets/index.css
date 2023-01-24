@@ -16,6 +16,17 @@
     display: none;
 }
 
+.dropdown {
+    display: inline-flex;
+    font-size: 1.3rem;
+    border: none !important;
+    box-shadow: none;
+}
+
+.date {
+    font-size: 1.2rem;
+}
+
 .form-auth {
     width: 30%;
     border-radius: 5px;
@@ -190,6 +201,8 @@
     width: 3.5rem !important;
     text-align: center;
 }
+
+
 /* 
 .empty-layout{display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-ms-flex-align:center;align-items:center;padding-top:5rem;height:100vh}
 .auth-card{width:500px}

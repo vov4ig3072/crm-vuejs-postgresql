@@ -20,6 +20,7 @@ router.post(
     ], 
     userController.login)
 
-router.get("/get-user-info/:id", authMiddleware , userController.getUserInfo)
+router.get("/user-info/:id", authMiddleware , userController.getUserInfo)
+router.put("/user-info/:id", authMiddleware , userController.updateUserInfo)
 
 export default router

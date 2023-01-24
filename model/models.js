@@ -7,7 +7,8 @@ const User = sequelize.define('user',{
     email: {type: DataTypes.STRING, unique: true},
     password: {type: DataTypes.STRING, allowNull: false},
     name: {type: DataTypes.STRING, allowNull: false},
-    salary: {type: DataTypes.INTEGER, defaultValue: 10000}
+    salary: {type: DataTypes.INTEGER, defaultValue: 10000},
+    locale: {type: DataTypes.STRING, defaultValue: "ua-UA"}
 })
 
 const Consuntion = sequelize.define('consuntion',{
